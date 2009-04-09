@@ -1,0 +1,7 @@
+= contentz
+
+Description goes here.
+
+== Copyright
+
+Copyright (c) 2009 Ben Pickles. See LICENSE for details.
