@@ -1,6 +1,20 @@
 = contentz
 
-Description goes here.
+Contentz (pronounced "content zee") is an ActiveRecord extension that uses Zlib to compress/uncompress attribute data on write/read.
+
+== Usage
+
+Require the gem in <tt>config/environment.rb</tt>:
+
+  Rails::Initializer.run do |config|
+    config.gem 'benpickles-contentz', :lib => 'contentz', :source => 'http://gems.github.com'
+  end
+
+Use the <tt>contentz</tt> method in any ActiveRecord model to apply compression to attribute(s):
+
+  class Article < ActiveRecord::Base
+    contentz :body
+  end
 
 == Copyright
 

@@ -5,12 +5,11 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
     gem.name = "contentz"
-    gem.summary = %Q{TODO}
+    gem.summary = 'Contentz (pronounced "content zee") is an ActiveRecord extension that uses Zlib to compress/uncompress attribute data on write/read.'
     gem.email = "spideryoung@gmail.com"
     gem.homepage = "http://github.com/benpickles/contentz"
     gem.authors = ["Ben Pickles"]
-
-    # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
+    gem.add_dependency "activerecord"
   end
 rescue LoadError
   puts "Jeweler not available. Install it with: sudo gem install technicalpickles-jeweler -s http://gems.github.com"
@@ -36,7 +35,6 @@ rescue LoadError
   end
 end
 
-
 task :default => :test
 
 require 'rake/rdoctask'
@@ -54,3 +52,19 @@ Rake::RDocTask.new do |rdoc|
   rdoc.rdoc_files.include('lib/**/*.rb')
 end
 
+require File.join(File.dirname(__FILE__), 'test', 'config')
+
+namespace :db do
+  desc 'Build the MySQL test database.'
+  task :build do
+    `mysqladmin -u #{DB_USER} create #{DB_NAME}`
+  end
+
+  desc 'Drop the MySQL test database.'
+  task :drop do
+    `mysqladmin -u #{DB_USER} -f drop #{DB_NAME}`
+  end
+
+  desc 'Rebuild the MySQL test databases'
+  task :rebuild => [:drop, :build]
+end
